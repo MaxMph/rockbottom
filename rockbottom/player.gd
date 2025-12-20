@@ -17,6 +17,7 @@ var sense = 0.001
 
 
 
+var distracted = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -35,7 +36,10 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and distracted == false:
+		#if $Control/text_display.visible:
+			#$Control/text_display.hide()
+		#else:
 		if is_on_floor():
 			velocity.y = jump_vel
 			print("jump")
@@ -55,14 +59,29 @@ func _physics_process(delta: float) -> void:
 		#if $head/wall_jump.is_colliding():
 			#velocity.y = jump_vel
 	
-	if Input.is_action_just_pressed("int"):
-		if %interact_cast.interactable != null:
-			%interact_cast.interactable.interact()
-		 
+	#if Input.is_action_just_pressed("int"):
+		##if %interact_cast.interactable != null:
+		#if %interact_cast.is_colliding():
+			#if %interact_cast.get_collider().has_method("interact"):
+				#%interact_cast.get_collider().interact()
+	
+	%int_indicator.hide()
+	if distracted == false:
+		if %interact_cast.is_colliding():
+			if %interact_cast.get_collider().has_method("interact"):
+				%int_indicator.show()
+				if Input.is_action_just_pressed("int"):
+					%interact_cast.get_collider().interact()
+	else:
+		if Input.is_action_just_pressed("int"):
+			$Control/text_display.hide()
+			distracted = false
+		
+	 
 	
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
+	if direction and distracted == false:
 		velocity.x = move_toward(velocity.x, direction.x * speed, acc * delta)
 		velocity.z = move_toward(velocity.z, direction.z * speed, acc * delta)
 	else:
@@ -72,4 +91,8 @@ func _physics_process(delta: float) -> void:
 	$Control/fps_counter.text = str(Engine.get_frames_per_second())
 
 	move_and_slide()
-	
+
+func display_text(txt: String):
+	$Control/text_display.show()
+	$Control/text_display/RichTextLabel.text = txt
+	distracted = true

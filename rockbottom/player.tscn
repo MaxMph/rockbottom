@@ -1,13 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cugpwtk812h88"]
+[gd_scene load_steps=10 format=3 uid="uid://cugpwtk812h88"]
 
 [ext_resource type="Script" uid="uid://clqbp5bvx3itq" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://kcmsxhm16kle" path="res://DSC03765-removebg-preview.png" id="2_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c080dp56ofgro" path="res://DSC03766-removebg-preview.png" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://bpecgnu5n5dbi" path="res://DSC03770-removebg-preview.png" id="4_hqtel"]
+[ext_resource type="FontFile" uid="uid://brv7tcj472wkx" path="res://BMSPA___.TTF" id="5_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://ddcd03chir8n2" path="res://pexels-padrinan-343457.jpg" id="5_sweqy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam")]
+[sub_resource type="LabelSettings" id="LabelSettings_1jxqw"]
+font = ExtResource("5_2hs0m")
+font_size = 9
+
+[sub_resource type="Theme" id="Theme_2hs0m"]
+RichTextLabel/fonts/normal_font = ExtResource("5_2hs0m")
+
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam") groups=["player"]]
 script = ExtResource("1_4flbx")
 head = NodePath("head")
 cam = NodePath("head/cam_holder/Camera3D")
@@ -21,7 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="interact_cast" type="RayCast3D" parent="head/cam_holder/Camera3D"]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -2)
 
 [node name="gun_holder" type="Node3D" parent="head/cam_holder/Camera3D"]
 
@@ -136,3 +145,123 @@ mouse_filter = 2
 texture = ExtResource("4_hqtel")
 expand_mode = 1
 flip_h = true
+
+[node name="int_indicator" type="Control" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="int_label" type="Label" parent="Control/int_indicator"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "<F>"
+label_settings = SubResource("LabelSettings_1jxqw")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/int_indicator"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/int_indicator"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.5
+offset_top = -3.5
+offset_right = 3.5
+offset_bottom = 3.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sweqy")
+expand_mode = 1
+
+[node name="text_display" type="Control" parent="Control"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/text_display"]
+modulate = Color(0.6628316, 0.6154771, 0.5395409, 1)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -212.0
+offset_top = -56.0
+offset_right = 212.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sweqy")
+expand_mode = 1
+stretch_mode = 3
+flip_v = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/text_display"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -46.0
+offset_right = 199.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2hs0m")
+text = "agrthrgsrgesrgsrg"
+horizontal_alignment = 1
+vertical_alignment = 1
