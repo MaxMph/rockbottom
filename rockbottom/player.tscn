@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cugpwtk812h88"]
+
+[ext_resource type="Script" uid="uid://clqbp5bvx3itq" path="res://player.gd" id="1_4flbx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam")]
+script = ExtResource("1_4flbx")
+head = NodePath("head")
+cam = NodePath("head/cam_holder/Camera3D")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="cam_holder" type="Node3D" parent="head"]
+
+[node name="Camera3D" type="Camera3D" parent="head/cam_holder"]
+
+[node name="interact_cast" type="RayCast3D" parent="head/cam_holder/Camera3D"]
+unique_name_in_owner = true
+
+[node name="gun_holder" type="Node3D" parent="head/cam_holder/Camera3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="fps_counter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 21.0
+offset_right = 71.0
+offset_bottom = 44.0
