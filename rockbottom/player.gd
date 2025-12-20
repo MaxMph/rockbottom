@@ -1,9 +1,15 @@
 extends CharacterBody3D
 
-var jump_vel = 6
+
 var speed = 8
 var acc = 20
 var fric = 20
+
+var jump_vel = 6
+var mantle_vel = 8
+var walljump_mod = 1.0
+var walljump_push = 6
+var can_walljump = true
 
 var sense = 0.001
 @export var head: Node3D
@@ -29,10 +35,23 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_vel
-		#print("jump")
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			velocity.y = jump_vel
+			print("jump")
+		elif $head/mantle_top.is_colliding() == false and $head/mantle_bottom.is_colliding():
+			velocity.y = mantle_vel
+			print("mantle")
 		
+		elif $head/wall_jump.is_colliding():
+			velocity.y = jump_vel * walljump_mod
+			velocity += $head/wall_jump.get_collision_normal() * walljump_push
+			#velocity + (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()#-head.transform.basis * Vector3.BACK * walljump_push
+			print("wall jump")
+		
+	#else: #works for climbing!!!
+		#if $head/wall_jump.is_colliding():
+			#velocity.y = jump_vel
 	
 	if Input.is_action_just_pressed("int"):
 		if %interact_cast.interactable != null:

@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cugpwtk812h88"]
+[gd_scene load_steps=6 format=3 uid="uid://cugpwtk812h88"]
 
 [ext_resource type="Script" uid="uid://clqbp5bvx3itq" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://kcmsxhm16kle" path="res://DSC03765-removebg-preview.png" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://c080dp56ofgro" path="res://DSC03766-removebg-preview.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://bpecgnu5n5dbi" path="res://DSC03770-removebg-preview.png" id="4_hqtel"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
@@ -18,8 +21,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="interact_cast" type="RayCast3D" parent="head/cam_holder/Camera3D"]
 unique_name_in_owner = true
+target_position = Vector3(0, 0, -1)
 
 [node name="gun_holder" type="Node3D" parent="head/cam_holder/Camera3D"]
+
+[node name="wall_jump" type="RayCast3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8873883, -0.307)
+target_position = Vector3(0, 0, -1)
+
+[node name="mantle_top" type="RayCast3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5260408, -0.30702972)
+target_position = Vector3(0, 0, -0.5)
+
+[node name="mantle_bottom" type="RayCast3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7293265, -0.30702972)
+target_position = Vector3(0, 0, -0.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_4flbx")
@@ -39,3 +55,84 @@ offset_left = 31.0
 offset_top = 21.0
 offset_right = 71.0
 offset_bottom = 44.0
+
+[node name="hands" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="normal r" type="TextureRect" parent="Control/hands"]
+layout_mode = 0
+offset_left = -55.0
+offset_top = -168.0
+offset_right = 431.62402
+offset_bottom = 106.0
+mouse_filter = 2
+texture = ExtResource("2_onrkg")
+expand_mode = 1
+
+[node name="normal l" type="TextureRect" parent="Control/hands"]
+layout_mode = 0
+offset_left = -401.0
+offset_top = -168.0
+offset_right = 85.62402
+offset_bottom = 106.0
+mouse_filter = 2
+texture = ExtResource("2_onrkg")
+expand_mode = 1
+flip_h = true
+
+[node name="open r" type="TextureRect" parent="Control/hands"]
+visible = false
+layout_mode = 0
+offset_left = -81.0
+offset_top = -184.0
+offset_right = 405.62402
+offset_bottom = 90.0
+mouse_filter = 2
+texture = ExtResource("3_i3pqv")
+expand_mode = 1
+
+[node name="open l" type="TextureRect" parent="Control/hands"]
+visible = false
+layout_mode = 0
+offset_left = -364.0
+offset_top = -184.0
+offset_right = 122.62402
+offset_bottom = 90.0
+mouse_filter = 2
+texture = ExtResource("3_i3pqv")
+expand_mode = 1
+flip_h = true
+
+[node name="fist r" type="TextureRect" parent="Control/hands"]
+visible = false
+layout_mode = 0
+offset_left = -81.0
+offset_top = -208.0
+offset_right = 405.62402
+offset_bottom = 66.0
+mouse_filter = 2
+texture = ExtResource("4_hqtel")
+expand_mode = 1
+
+[node name="fist l" type="TextureRect" parent="Control/hands"]
+visible = false
+layout_mode = 0
+offset_left = -364.0
+offset_top = -208.0
+offset_right = 122.62402
+offset_bottom = 66.0
+mouse_filter = 2
+texture = ExtResource("4_hqtel")
+expand_mode = 1
+flip_h = true
