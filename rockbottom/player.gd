@@ -39,15 +39,17 @@ func _physics_process(delta: float) -> void:
 		if is_on_floor():
 			velocity.y = jump_vel
 			print("jump")
-		elif $head/mantle_top.is_colliding() == false and $head/mantle_bottom.is_colliding():
+		elif $head/mantle_top.is_colliding() == false and $head/mantle_bottom.is_colliding(): # mantle
 			velocity.y = mantle_vel
 			print("mantle")
 		
-		elif $head/wall_jump.is_colliding():
+		elif $head/wall_jump.is_colliding(): # wall jump
 			velocity.y = jump_vel * walljump_mod
 			velocity += $head/wall_jump.get_collision_normal() * walljump_push
 			#velocity + (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()#-head.transform.basis * Vector3.BACK * walljump_push
 			print("wall jump")
+		else:
+			pass
 		
 	#else: #works for climbing!!!
 		#if $head/wall_jump.is_colliding():
