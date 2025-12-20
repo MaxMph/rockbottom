@@ -8,7 +8,7 @@ var fric = 20
 var jump_vel = 6
 var mantle_vel = 8
 var walljump_mod = 1.0
-var walljump_push = 6
+var walljump_push = 10
 var can_walljump = true
 
 var sense = 0.001
