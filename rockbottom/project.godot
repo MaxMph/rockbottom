@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="rockbottom"
-run/main_scene="uid://bo6jdq17kgjb5"
+run/main_scene="uid://c51q450jgkrd"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
