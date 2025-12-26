@@ -5,8 +5,10 @@ var offset_speed = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	var goal_offset = Vector2(get_local_mouse_position().x / 200, -get_local_mouse_position().y / 200)
+	$"../Camera3D".h_offset = goal_offset.x
+	$"../Camera3D".v_offset = goal_offset.y
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
